@@ -7,7 +7,7 @@ import pandas as pd
 app = FastAPI()
 
 model = joblib.load(
-    "../models/adaboost_model.pkl"
+    "models/adaboost_model.pkl"
 )
 
 class Details(BaseModel):
@@ -21,6 +21,9 @@ class Details(BaseModel):
         float,
         Field(gt=0, lt=150, description="Enter patient Age", examples=[20, 21, 22])
     ]
+@app.get("/")
+def home():
+    return {"message": "Welcome to the Diabetes Prediction API. Use the /predict endpoint to get predictions."}
 
 @app.post('/predict')
 def patient(data: Details):
